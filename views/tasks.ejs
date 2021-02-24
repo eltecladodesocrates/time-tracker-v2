@@ -2,10 +2,16 @@
 
 <% tasks.forEach((task) => { %>
     <div class="container">
-        <p><%= task.name %></p>
-        <button>S</button>
-        <p><%= task.time %></p>
+        <form class="container" action="/delete" method="post">
+            <input type="checkbox" name="deleteCheckbox" value="<%= task._id %>" onChange="this.form.submit()">
+            <p><%= task.name %></p>
+        </form>
+        <form class="container" action="/track" method="post">
+            <p><%= task.time %></p> 
+            <button type="submit" name="trackButton" value="<%= task._id %>">S</button>
+        </form>
     </div>
+
 <% }) %>
 
 <form action="/" method="post">
