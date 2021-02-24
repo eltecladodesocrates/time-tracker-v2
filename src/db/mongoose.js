@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/timeTracker', {
+mongoose.connect('mongodb://localhost:27017/time-tracker', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,

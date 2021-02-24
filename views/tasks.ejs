@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/styles.css">
 
 <% tasks.forEach((task) => { %>
     <div class="container">
@@ -8,7 +8,7 @@
         </form>
         <form class="container" action="/track" method="post">
             <p><%= task.time %></p> 
-            <button type="submit" name="trackButton" value="<%= task._id %>">S</button>
+            <button type="submit" name="startButton" value="<%= task._id %>">T</button>
         </form>
     </div>
 

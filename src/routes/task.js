@@ -29,8 +29,27 @@ router.post('/delete', async (req, res) => {
 })
 
 router.post('/track', async (req, res) => {
-    const task = await Task.findByIdAndUpdate(req.body.trackButton, {
-        time: 25
+
+    const id = req.body.startButton
+    const tasks = await Task.find()
+    const task = await Task.findById(id)
+    const time = task.time
+
+    res.render('track', {
+        tasks,
+        time,
+        id
+    })
+})
+
+router.post('/stop', async (req, res) => {
+    
+    const id = req.body.startButton
+    task = await Task.findById(id)
+    finalTime = task.time + parseInt(req.body.timePassed)
+    
+    await Task.findByIdAndUpdate(id, {
+        time: finalTime
     })
     res.redirect('/')
 })
