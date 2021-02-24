@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="styles.css">
+
+<% tasks.forEach((task) => { %>
+    <div class="container">
+        <p><%= task.name %></p>
+        <button>S</button>
+        <p><%= task.time %></p>
+    </div>
+<% }) %>
+
+<form action="/" method="post">
+    <input type="text" name="newTask" placeholder="New Task" autocomplete="off">
+    <button type="submit" name="task">Add</button>
+</form>
