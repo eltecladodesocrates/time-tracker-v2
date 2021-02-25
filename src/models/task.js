@@ -5,7 +5,15 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    time: {
+    sec: {
+        type: Number,
+        default: 0
+    },
+    min: {
+        type: Number,
+        default: 0
+    },
+    hrs: {
         type: Number,
         default: 0
     }

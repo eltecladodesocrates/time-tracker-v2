@@ -33,11 +33,11 @@ router.post('/track', async (req, res) => {
     const id = req.body.startButton
     const tasks = await Task.find()
     const task = await Task.findById(id)
-    const time = task.time
+    const sec = task.sec
 
     res.render('track', {
         tasks,
-        time,
+        sec,
         id
     })
 })
@@ -46,10 +46,14 @@ router.post('/stop', async (req, res) => {
     
     const id = req.body.startButton
     task = await Task.findById(id)
-    finalTime = task.time + parseInt(req.body.timePassed)
+    finalSec = task.sec + parseInt(req.body.secPassed)
+    finalMin = task.min + parseInt(req.body.minPassed)
+    finalHrs = task.hrs + parseInt(req.body.hrsPassed)
     
     await Task.findByIdAndUpdate(id, {
-        time: finalTime
+        sec: finalSec,
+        min: finalMin,
+        hrs: finalHrs
     })
     res.redirect('/')
 })

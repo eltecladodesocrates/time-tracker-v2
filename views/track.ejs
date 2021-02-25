@@ -8,7 +8,9 @@
                 <p><%= task.name %></p>
             </form>
             <form class="container" action="/stop" method="post">
-                <input id='timeRunnig' type="text" name='timePassed' value="0">
+                <input id='hrsRunnig' type="text" name='hrsPassed' value="0">
+                <input id='minRunnig' type="text" name='minPassed' value="0">
+                <input id='secRunnig' type="text" name='secPassed' value="0">
                 <button type="submit" name="startButton" value="<%= task._id %>">S</button>
             </form>
         </div>

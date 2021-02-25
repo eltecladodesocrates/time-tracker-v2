@@ -7,7 +7,9 @@
             <p><%= task.name %></p>
         </form>
         <form class="container" action="/track" method="post">
-            <p><%= task.time %></p> 
+            <p><%= task.hrs %></p> 
+            <p><%= task.min %></p> 
+            <p><%= task.sec %></p> 
             <button type="submit" name="startButton" value="<%= task._id %>">T</button>
         </form>
     </div>
