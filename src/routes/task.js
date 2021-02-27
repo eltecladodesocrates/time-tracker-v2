@@ -45,10 +45,20 @@ router.post('/track', async (req, res) => {
 router.post('/stop', async (req, res) => {
     
     const id = req.body.startButton
-    task = await Task.findById(id)
+    const task = await Task.findById(id)
     finalSec = task.sec + parseInt(req.body.secPassed)
     finalMin = task.min + parseInt(req.body.minPassed)
     finalHrs = task.hrs + parseInt(req.body.hrsPassed)
+
+    if (finalSec >= 60) {
+        finalSec = finalSec - 60
+        finalMin++
+    }
+
+    if (finalMin >= 60 ) {
+        finalMin = finalMin - 60
+        finalHrs++
+    }
     
     await Task.findByIdAndUpdate(id, {
         sec: finalSec,
