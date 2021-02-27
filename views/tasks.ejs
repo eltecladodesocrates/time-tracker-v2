@@ -6,6 +6,9 @@
             <input type="checkbox" name="deleteCheckbox" value="<%= task._id %>" onChange="this.form.submit()">
             <p><%= task.name %></p>
         </form>
+        <form class="container" action="/edit" method="post">
+            <button type="submit" name="editButton" value="<%= task._id %>">E</button>
+        </form>
         <form class="container" action="/track" method="post">
             <p><%= task.hrs %></p> 
             <p><%= task.min %></p> 

@@ -10,13 +10,13 @@ let hrs = 0
 const finalTime = setInterval(() => {
     time++
 
-    if (time >= 5) {
+    if (time >= 60) {
         time = 0
         min++
     }
     secRunner.value = time
 
-    if (min >= 5) {
+    if (min >= 60) {
         min = 0
         hrs++
     }

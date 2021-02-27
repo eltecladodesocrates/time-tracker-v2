@@ -58,4 +58,21 @@ router.post('/stop', async (req, res) => {
     res.redirect('/')
 })
 
+router.post('/edit', async (req, res) => {
+    const id = req.body.editButton
+    const tasks = await Task.find()
+    res.render('edit', {
+        tasks,
+        id
+    })
+})
+
+router.post('/patch', async (req, res) => {
+    const id = req.body.editButton
+    const task = await Task.findByIdAndUpdate(id, {
+        name: req.body.editInput
+    })
+    res.redirect('/')
+})
+
 module.exports = router

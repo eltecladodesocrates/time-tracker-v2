@@ -5,15 +5,13 @@
         <div class="container">
             <form class="container" action="/delete" method="post">
                 <input type="checkbox" name="deleteCheckbox" value="<%= task._id %>" onChange="this.form.submit()">
-                <p><%= task.name %></p>
             </form>
-            <form class="container" action="/edit" method="post">
+            <form action="/patch" method="post">
+                <input type="text" name="editInput" value="<%= task.name %>">
                 <button type="submit" name="editButton" value="<%= task._id %>">E</button>
             </form>
             <form class="container" action="/stop" method="post">
-                <input id='hrsRunnig' type="text" name='hrsPassed' value="0">
-                <input id='minRunnig' type="text" name='minPassed' value="0">
-                <input id='secRunnig' type="text" name='secPassed' value="0">
+                <p><%= task.time %></p> 
                 <button type="submit" name="startButton" value="<%= task._id %>">S</button>
             </form>
         </div>
@@ -23,7 +21,7 @@
                 <input type="checkbox" name="deleteCheckbox" value="<%= task._id %>" onChange="this.form.submit()">
                 <p><%= task.name %></p>
             </form>
-            <form class="container" action="/edit" method="post">
+            <form action="/edit" method="post">
                 <button type="submit" name="editButton" value="<%= task._id %>">E</button>
             </form>
             <form class="container" action="/stop" method="post">
@@ -39,5 +37,3 @@
     <input type="text" name="newTask" placeholder="New Task" autocomplete="off">
     <button type="submit" name="task">Add</button>
 </form>
-
-<script src="js/track.js"></script>
