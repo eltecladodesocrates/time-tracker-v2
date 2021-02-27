@@ -6,7 +6,7 @@
             <form class="container" action="/delete" method="post">
                 <input type="checkbox" name="deleteCheckbox" value="<%= task._id %>" onChange="this.form.submit()">
             </form>
-            <form action="/patch" method="post">
+            <form class="container" action="/patch" method="post">
                 <input type="text" name="editInput" value="<%= task.name %>">
                 <button type="submit" name="editButton" value="<%= task._id %>">E</button>
             </form>

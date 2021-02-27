@@ -10,3 +10,12 @@ body {
     justify-content: space-evenly;
 
 }
+
+.trackInput {
+    border: none;
+    display: inline;
+    font-family: inherit;
+    font-size: inherit;
+    padding: none;
+    width: 40px;
+} 
