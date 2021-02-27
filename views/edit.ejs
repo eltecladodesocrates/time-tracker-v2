@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/styles.css">
+<%- include('partials/header') -%>
 
 <% tasks.forEach((task) => { %>
     <% if (task._id == id) { %>
@@ -33,7 +33,10 @@
 
 <% }) %>
 
-<form action="/" method="post">
-    <input type="text" name="newTask" placeholder="New Task" autocomplete="off">
-    <button type="submit" name="task">Add</button>
-</form>
+<div class="container">
+    <form action="/" method="post">
+        <input type="text" name="newTask" placeholder="New Task" autocomplete="off">
+        <button type="submit" name="task">Add</button>
+    </form>
+</div>
+

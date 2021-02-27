@@ -1,6 +1,42 @@
 body {
-    text-align: center;
+    /* text-align: center;s */
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.header {
+    display: flex;
+    background-color: black;
+    color: whitesmoke;
+    margin-bottom: 20px;
+    padding: 0;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.header .nav-bar .nav-bar-list {
+    display: flex;
+    list-style: none;
+}
+
+.header .nav-bar .nav-bar-list li {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.header .nav-bar .nav-bar-list li a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.main-content {
+    height: 90vh;
 }
 
 .container {
@@ -9,7 +45,11 @@ body {
     margin: auto;
     align-items: center;
     justify-content: space-evenly;
+}
 
+.time-tracked {
+    width: 50px;
+    text-align: center;
 }
 
 .trackInput {
@@ -17,6 +57,16 @@ body {
     display: inline;
     font-family: inherit;
     font-size: inherit;
-    padding: none;
-    width: 40px;
+    padding: 0;
+    width: 32.2px;
+    text-align: center;
 } 
+
+.footer {
+    background-color: black;
+    color: whitesmoke;
+    text-align: center;
+    height: 50px;
+    margin-top: -50px;
+    width: 100%;
+}
