@@ -1,0 +1,21 @@
+<%- include('partials/header') -%>
+
+<form class="container-column" action="/signup" method="post">
+    <div class="name">
+        <label>Name</label>
+        <input type="text" name="userName" placeholder="Name">
+    </div>
+    <div class="name">
+        <label>E-mail</label>
+        <input type="text" name="userEmail" placeholder="E-mail">
+    </div>
+    <div class="password">
+        <label>Password</label>
+        <input type="text" name="userPassword" placeholder="Password">
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+<%- include('partials/footer') -%>

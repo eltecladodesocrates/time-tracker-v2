@@ -8,6 +8,11 @@ body {
     align-content: center;
 }
 
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
 .header {
     display: flex;
     background-color: black;
@@ -69,4 +74,24 @@ body {
     height: 50px;
     margin-top: -50px;
     width: 100%;
+}
+
+/* login-container */
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-column div {
+    margin: 20px 0;
 }
