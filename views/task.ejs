@@ -1,0 +1,13 @@
+<%- include('partials/header') -%>
+
+<h1><%= name %></h1>
+<% subTasks.forEach((subTask) => { %>
+    <p><%= subTask %></p>
+<% }) %>
+<form action="/<%= id %>" method="post">
+    <input type="text" name="newSubtask" placeholder="New Task" autocomplete="off">
+    <button type="submit">Add</button>
+</form>
+
+
+<%- include('partials/footer') -%>

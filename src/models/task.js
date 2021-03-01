@@ -5,6 +5,9 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    subTasks: {
+        type: Array
+    },
     sec: {
         type: Number,
         default: 0
