@@ -16,6 +16,9 @@ const taskSchema = new mongoose.Schema({
     hrs: {
         type: Number,
         default: 0
+    },
+    subTasks: {
+        type: Array
     }
 })
 

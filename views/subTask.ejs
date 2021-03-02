@@ -2,11 +2,11 @@
 
 <h1><%= name %></h1>
 <% subTasks.forEach((subTask) => { %>
-    <p><%= subTask %></p>
+    <p><%= subTask.name %></p>
 <% }) %>
 <form action="/<%= id %>" method="post">
     <input type="text" name="newSubtask" placeholder="New Task" autocomplete="off">
-    <button type="submit">Add</button>
+    <button type="submit" name="subTaskButton" value="<%= id %>">Add</button>
 </form>
 
 

@@ -5,9 +5,10 @@
         <form class="container" action="/delete" method="post">
             <input type="checkbox" name="deleteCheckbox" value="<%= task._id %>" onChange="this.form.submit()">
         </form>
-        <form action="/<%= task._id %>">
+        <!-- <form action="/<%= task._id %>">
             <button type="submit"><%= task.name %></button>
-        </form>
+        </form> -->
+        <a style="color: black;" href="/<%= task._id %>"><%= task.name %></a>
         <form class="container" action="/edit" method="post">
             <button type="submit" name="editButton" value="<%= task._id %>">E</button>
         </form>
