@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 
-const taskSchema = new mongoose.Schema({
+const subTaskSchema = new mongoose.Schema({
     name: {
         type: String,
+        trim: true,
         required: true
     },
     sec: {
@@ -17,8 +18,9 @@ const taskSchema = new mongoose.Schema({
         type: Number,
         default: 0
     }
+
 })
 
-const Task = mongoose.model('Task', taskSchema)
+const SubTask = mongoose.model('SubTask', subTaskSchema)
 
-module.exports = Task
+module.exports = SubTask
