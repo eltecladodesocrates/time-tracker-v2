@@ -14,19 +14,6 @@ router.get('/', async (req, res) => {
     })
 })
 
-router.get('/:taskId', async (req, res) => {
-
-    const id = req.params.taskId
-    const task = await Task.findById(id)
-    const name = task.name
-    const subTasks = task.subTasks
-    res.render('subTask', {
-        name,
-        id,
-        subTasks
-    })
-})
-
 
 
 router.post('/', async (req, res) => {
@@ -98,16 +85,6 @@ router.post('/patch', async (req, res) => {
         name: req.body.editInput
     })
     res.redirect('/')
-})
-
-router.post('/:taskId', async (req, res) => {
-    const id = req.params.taskId
-    const task = await Task.findById(id)
-    task.subTasks.push({
-        name: req.body.newSubtask
-    })
-    await task.save()
-    res.redirect(`/${id}`)
 })
 
 module.exports = router
