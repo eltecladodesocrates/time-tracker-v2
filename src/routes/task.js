@@ -3,7 +3,10 @@ const bodyParser = require('body-parser')
 
 const Task = require('../models/task')
 const SubTask = require('../models/subTask')
+
 const currentTime = require('../utils/currentTime')
+const sumUpTime = require('../utils/sumUpTime')
+
 const router = new express.Router()
 
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -56,14 +59,9 @@ router.post('/track', async (req, res) => {
 
 router.post('/stop', async (req, res) => {
     
-    // const id = req.body.startButton
     const ids = req.body.startButton.split(',')
     const id = ids[0]
     const subId = ids[1]
-    const subTask = await SubTask.find({
-        _id: subId,
-        owner: id
-    })
 
     let sec = req.body.secPassed
     let min = req.body.minPassed
@@ -85,6 +83,8 @@ router.post('/stop', async (req, res) => {
         min,
         hrs
     })
+
+    sumUpTime(id, subId)
 
     res.redirect('/')
 })
