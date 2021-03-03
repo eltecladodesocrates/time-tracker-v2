@@ -17,6 +17,12 @@ const taskSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    start: {
+        type: String,
+    },
+    end: {
+        type: String
+    },
     subTasks: {
         type: Array
     }

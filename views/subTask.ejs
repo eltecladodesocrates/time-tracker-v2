@@ -2,8 +2,14 @@
 
 <h1><%= name %></h1>
 <% subTasks.forEach((subTask) => { %>
-    <p><%= subTask.name %></p>
+    <div class="container">
+        <form class="container" action="/<%= id %>/deleteSub" method="post">
+            <input type="checkbox" name="deleteCheckbox" value="<%= subTask._id %>" onChange="this.form.submit()">
+            <p><%= subTask.name %></p>
+        </form>
+    </div>
 <% }) %>
+
 <form action="/<%= id %>" method="post">
     <input type="text" name="newSubtask" placeholder="New Task" autocomplete="off">
     <button type="submit" name="subTaskButton" value="<%= id %>">Add</button>

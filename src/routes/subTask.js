@@ -19,6 +19,12 @@ router.get('/:taskId', async (req, res) => {
     })
 })
 
+router.post('/:taskId/deleteSub', async (req, res) => {
+    const id = req.params.taskId
+    const subTask = await SubTask.findByIdAndDelete(req.body.deleteCheckbox)
+    res.redirect(`/${id}`)
+})
+
 router.post('/:taskId', async (req, res) => {
 
     const id = req.params.taskId
@@ -28,7 +34,7 @@ router.post('/:taskId', async (req, res) => {
     })
     await subTask.save()
     res.redirect(`/${id}`)
-    
+
 })
 
 module.exports = router
