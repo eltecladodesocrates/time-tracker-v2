@@ -14,7 +14,7 @@
                 <input class="trackInput" id='hrsRunnig' type="text" name='hrsPassed' value="0">
                 <input class="trackInput" id='minRunnig' type="text" name='minPassed' value="0">
                 <input class="trackInput" id='secRunnig' type="text" name='secPassed' value="0">
-                <button type="submit" name="startButton" value="<%= task._id %>">S</button>
+                <button type="submit" name="startButton" value="<%= [task._id, subTaskId] %>">S</button>
             </form>
         </div>
     <% } else { %>

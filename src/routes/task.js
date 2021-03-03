@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const Task = require('../models/task')
+const SubTask = require('../models/subTask')
 const currentTime = require('../utils/currentTime')
 const router = new express.Router()
 
@@ -39,36 +40,52 @@ router.post('/track', async (req, res) => {
     const task = await Task.findById(id)
     const sec = task.sec
 
+    const subTask = new SubTask({
+        owner: id
+    })
+    await subTask.save()
+    console.log()
+
     res.render('track', {
         tasks,
         sec,
-        id
+        id,
+        subTaskId: subTask._id
     })
 })
 
 router.post('/stop', async (req, res) => {
     
-    const id = req.body.startButton
-    const task = await Task.findById(id)
-    finalSec = task.sec + parseInt(req.body.secPassed)
-    finalMin = task.min + parseInt(req.body.minPassed)
-    finalHrs = task.hrs + parseInt(req.body.hrsPassed)
-
-    if (finalSec >= 60) {
-        finalSec = finalSec - 60
-        finalMin++
-    }
-
-    if (finalMin >= 60 ) {
-        finalMin = finalMin - 60
-        finalHrs++
-    }
-    
-    await Task.findByIdAndUpdate(id, {
-        sec: finalSec,
-        min: finalMin,
-        hrs: finalHrs
+    // const id = req.body.startButton
+    const ids = req.body.startButton.split(',')
+    const id = ids[0]
+    const subId = ids[1]
+    const subTask = await SubTask.find({
+        _id: subId,
+        owner: id
     })
+
+    let sec = req.body.secPassed
+    let min = req.body.minPassed
+    let hrs = req.body.hrsPassed
+
+    if (sec >= 60) {
+        sec = sec - 60
+        min++
+    }
+
+    if (min >= 60 ) {
+        min = min - 60
+        hrs++
+    }
+
+
+    await SubTask.findByIdAndUpdate(subId, {
+        sec,
+        min,
+        hrs
+    })
+
     res.redirect('/')
 })
 

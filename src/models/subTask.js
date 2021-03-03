@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const subTaskSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
         trim: true
     },
     sec: {
