@@ -17,6 +17,12 @@ const subTaskSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    timeStart: {
+        type: String
+    },
+    timeEnd: {
+        type: String
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true

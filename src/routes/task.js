@@ -11,6 +11,10 @@ const router = new express.Router()
 
 router.use(bodyParser.urlencoded({ extended: true }))
 
+router.get('/tracks', (req, res) => {
+    res.render('tracks')
+})
+
 router.get('/', async (req, res) => {
 
     const tasks = await Task.find()
@@ -33,6 +37,9 @@ router.post('/', async (req, res) => {
 
 router.post('/delete', async (req, res) => {
     const task = await Task.findByIdAndDelete(req.body.deleteCheckbox)
+    await SubTask.deleteMany({
+        owner: task.id
+    })
     res.redirect('/')
 })
 
@@ -44,10 +51,10 @@ router.post('/track', async (req, res) => {
     const sec = task.sec
 
     const subTask = new SubTask({
-        owner: id
+        owner: id,
+        timeStart: currentTime()
     })
     await subTask.save()
-    console.log()
 
     res.render('track', {
         tasks,
@@ -81,7 +88,8 @@ router.post('/stop', async (req, res) => {
     await SubTask.findByIdAndUpdate(subId, {
         sec,
         min,
-        hrs
+        hrs,
+        timeEnd: currentTime()
     })
 
     sumUpTime(id, subId)
