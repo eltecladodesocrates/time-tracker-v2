@@ -96,3 +96,30 @@ a {
 .container-column div {
     margin: 20px 0;
 }
+
+/* Tracks */
+
+.mainContainer {
+    display: flex;
+    
+}
+
+.hour {
+    width: 120px;
+    height: 40px;
+}
+
+.tracksContainer {
+    width: 120px;
+    height: 960px;
+    background-color: lightblue;
+    position: relative;
+}
+
+.track {
+    width: 120px;
+    height: 40px;
+    background-color: steelblue;
+    position: absolute;
+    top: 360px;
+}
