@@ -4,13 +4,14 @@
     <div class="hoursContainer">
         <% trackHours.forEach((trackHour) => { %>
             <div class="hour"><%= trackHour %>:00</div>
-            
         <% }) %>
     </div>
     <div class="tracksContainer">
-        <div class="track">
-            Literature
-        </div>
+        <% subTasks.forEach((subTask) => { %>
+            <div class="track" style="top: <%= (parseInt(subTask.timeStart.split(':')[0])*40)%>px;">
+                <%=subTask.name %>
+            </div>
+        <% }) %>
     </div>
 </div>
 <%- include('partials/footer') -%>

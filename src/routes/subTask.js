@@ -28,8 +28,9 @@ router.post('/:taskId/deleteSub', async (req, res) => {
 router.post('/:taskId', async (req, res) => {
 
     const id = req.params.taskId
+    const task = await findById(id)
     const subTask = new SubTask({
-        name: req.body.newSubtask,
+        name: task.name,
         owner: id
     })
     await subTask.save()
