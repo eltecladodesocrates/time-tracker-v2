@@ -26,6 +26,10 @@ const subTaskSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
+    },
+    height: {
+        type: Number,
+        default: 0
     }
 })
 
