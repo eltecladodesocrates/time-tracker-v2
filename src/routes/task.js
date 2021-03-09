@@ -7,6 +7,7 @@ const SubTask = require('../models/subTask')
 const currentTime = require('../utils/currentTime')
 const sumUpTime = require('../utils/sumUpTime')
 const getHeight = require('../utils/getHeight')
+const getStartPoint = require('../utils/getStartPoint')
 
 const router = new express.Router()
 
@@ -104,6 +105,7 @@ router.post('/stop', async (req, res) => {
 
     sumUpTime(id, subId)
     getHeight(subId)
+    getStartPoint(subId)
 
     res.redirect('/')
 })

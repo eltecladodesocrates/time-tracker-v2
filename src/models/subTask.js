@@ -30,6 +30,9 @@ const subTaskSchema = new mongoose.Schema({
     height: {
         type: Number,
         default: 0
+    },
+    startPoint: {
+        type: Number
     }
 })
 
