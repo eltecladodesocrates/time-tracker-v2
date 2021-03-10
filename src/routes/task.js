@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const moment = require('moment')
 
 const Task = require('../models/task')
 const SubTask = require('../models/subTask')
@@ -18,10 +19,12 @@ const trackHours = [0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9, 10, 11, 12, 13, 14, 15, 16, 17
 router.get('/tracks', async (req, res) => {
 
     const subTasks = await SubTask.find()
+    const date = moment().format('MMMM Do')
     
     res.render('tracks', {
         trackHours,
-        subTasks
+        subTasks,
+        date
     })
 })
 
@@ -39,7 +42,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 
     const task = new Task({
-        name: req.body.newTask
+        name: req.body.newTask,
+        date: moment().format('MMMM D YYYY')
     })
     await task.save()
     res.redirect('/')

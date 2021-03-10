@@ -122,3 +122,12 @@ a {
     background-color: steelblue;
     position: absolute;
 }
+
+.separater {
+    height: 80px;
+}
+
+.date {
+    position: relative;
+    bottom: 100px;
+}

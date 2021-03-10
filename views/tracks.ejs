@@ -1,5 +1,5 @@
 <%- include('partials/header') -%>
-<h1>Tracks</h1>
+<div class="separater"></div>
 <div class="mainContainer">
     <div class="hoursContainer">
         <% trackHours.forEach((trackHour) => { %>
@@ -7,6 +7,7 @@
         <% }) %>
     </div>
     <div class="tracksContainer">
+        <h1 class="date"><%= date %></h1>
         <% subTasks.forEach((subTask) => { %>
             <div class="track" style="top: <%= subTask.startPoint %>px; height: <%= subTask.height %>px;">
                 <%=subTask.name %>

@@ -25,7 +25,11 @@ const taskSchema = new mongoose.Schema({
     },
     subTasks: {
         type: Array
+    },
+    date: {
+        type: String
     }
+    
 })
 
 const Task = mongoose.model('Task', taskSchema)
