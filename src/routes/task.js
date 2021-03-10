@@ -18,12 +18,18 @@ const trackHours = [0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9, 10, 11, 12, 13, 14, 15, 16, 17
 
 router.get('/tracks', async (req, res) => {
 
-    const subTasks = await SubTask.find()
+    // const subTasks = await SubTask.find()
     const dayBefore = moment().subtract(2, 'days').format('dddd Do')
     const yesterday = moment().subtract(1, 'days').format('dddd Do')
     const today = moment().format('dddd Do')
     const tomorrow = moment().add(1, 'days').format('dddd Do')
-    const dayAfter = moment().add(2, 'days').format('dddd Do')    
+    const dayAfter = moment().add(2, 'days').format('dddd Do')   
+    
+    const subTasksDayBefore = await SubTask.find({ date: dayBefore })
+    const subTasksYesterday = await SubTask.find({ date: yesterday })
+    const subTasks = await SubTask.find({ date: today })
+    const subTasksTomorrow = await SubTask.find({ date: tomorrow })
+    const subTasksDayAfter = await SubTask.find({ date: dayAfter })
     
     res.render('tracks', {
         trackHours,
@@ -32,7 +38,11 @@ router.get('/tracks', async (req, res) => {
         yesterday,
         today,
         tomorrow,
-        dayAfter
+        dayAfter,
+        subTasksDayBefore,
+        subTasksYesterday,
+        subTasksTomorrow,
+        subTasksDayAfter
     })
 })
 
@@ -50,8 +60,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 
     const task = new Task({
-        name: req.body.newTask,
-        date: moment().format('MMMM D YYYY')
+        name: req.body.newTask
     })
     await task.save()
     res.redirect('/')
@@ -75,7 +84,8 @@ router.post('/track', async (req, res) => {
     const subTask = new SubTask({
         name: task.name,
         owner: id,
-        timeStart: currentTime()
+        timeStart: currentTime(),
+        date: moment().format('dddd Do')
     })
     await subTask.save()
 

@@ -8,15 +8,19 @@
     </div>
     <div class="tracksContainer">
         <h1 class="date"><%= dayBefore %></h1>
-
-
-
+        <% subTasksDayBefore.forEach((subTask) => { %>
+            <div class="track" style="top: <%= subTask.startPoint %>px; height: <%= subTask.height %>px;">
+                <%=subTask.name %>
+            </div>
+        <% }) %>
     </div>
     <div class="tracksContainer">
         <h1 class="date"><%= yesterday %></h1>
-
-
-
+        <% subTasksYesterday.forEach((subTask) => { %>
+            <div class="track" style="top: <%= subTask.startPoint %>px; height: <%= subTask.height %>px;">
+                <%=subTask.name %>
+            </div>
+        <% }) %>
     </div>
     <div class="tracksContainer">
         <h1 class="date"><%= today %></h1>
@@ -28,15 +32,19 @@
     </div>
     <div class="tracksContainer">
         <h1 class="date"><%= tomorrow %></h1>
-
-
-
+        <% subTasksTomorrow.forEach((subTask) => { %>
+            <div class="track" style="top: <%= subTask.startPoint %>px; height: <%= subTask.height %>px;">
+                <%=subTask.name %>
+            </div>
+        <% }) %>
     </div>
     <div class="tracksContainer">
         <h1 class="date"><%= dayAfter %></h1>
-
-
-
+        <% subTasksDayAfter.forEach((subTask) => { %>
+            <div class="track" style="top: <%= subTask.startPoint %>px; height: <%= subTask.height %>px;">
+                <%=subTask.name %>
+            </div>
+        <% }) %>
     </div>
 </div>
 <%- include('partials/footer') -%>
