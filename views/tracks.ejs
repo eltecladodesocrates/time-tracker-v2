@@ -7,12 +7,36 @@
         <% }) %>
     </div>
     <div class="tracksContainer">
-        <h1 class="date"><%= date %></h1>
+        <h1 class="date"><%= dayBefore %></h1>
+
+
+
+    </div>
+    <div class="tracksContainer">
+        <h1 class="date"><%= yesterday %></h1>
+
+
+
+    </div>
+    <div class="tracksContainer">
+        <h1 class="date"><%= today %></h1>
         <% subTasks.forEach((subTask) => { %>
             <div class="track" style="top: <%= subTask.startPoint %>px; height: <%= subTask.height %>px;">
                 <%=subTask.name %>
             </div>
         <% }) %>
+    </div>
+    <div class="tracksContainer">
+        <h1 class="date"><%= tomorrow %></h1>
+
+
+
+    </div>
+    <div class="tracksContainer">
+        <h1 class="date"><%= dayAfter %></h1>
+
+
+
     </div>
 </div>
 <%- include('partials/footer') -%>

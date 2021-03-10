@@ -19,12 +19,20 @@ const trackHours = [0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9, 10, 11, 12, 13, 14, 15, 16, 17
 router.get('/tracks', async (req, res) => {
 
     const subTasks = await SubTask.find()
-    const date = moment().format('MMMM Do')
+    const dayBefore = moment().subtract(2, 'days').format('dddd Do')
+    const yesterday = moment().subtract(1, 'days').format('dddd Do')
+    const today = moment().format('dddd Do')
+    const tomorrow = moment().add(1, 'days').format('dddd Do')
+    const dayAfter = moment().add(2, 'days').format('dddd Do')    
     
     res.render('tracks', {
         trackHours,
         subTasks,
-        date
+        dayBefore,
+        yesterday,
+        today,
+        tomorrow,
+        dayAfter
     })
 })
 
