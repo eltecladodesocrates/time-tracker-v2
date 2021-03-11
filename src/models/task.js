@@ -25,6 +25,9 @@ const taskSchema = new mongoose.Schema({
     },
     subTasks: {
         type: Array
+    },
+    color: {
+        type: String
     }
     
 })

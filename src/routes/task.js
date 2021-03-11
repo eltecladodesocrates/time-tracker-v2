@@ -85,7 +85,8 @@ router.post('/track', async (req, res) => {
         name: task.name,
         owner: id,
         timeStart: currentTime(),
-        date: moment().format('dddd Do')
+        date: moment().format('dddd Do'),
+        color: task.color
     })
     await subTask.save()
 

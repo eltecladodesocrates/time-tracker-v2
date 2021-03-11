@@ -37,6 +37,9 @@ const subTaskSchema = new mongoose.Schema({
     },
     date: {
         type: String
+    },
+    color: {
+        type: String
     }
 })
 
