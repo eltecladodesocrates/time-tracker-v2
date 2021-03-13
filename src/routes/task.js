@@ -60,7 +60,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 
     const task = new Task({
-        name: req.body.newTask
+        name: req.body.newTask,
+        color: "lightblue"
     })
     await task.save()
     res.redirect('/')
