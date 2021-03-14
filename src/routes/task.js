@@ -4,6 +4,7 @@ const moment = require('moment')
 
 const Task = require('../models/task')
 const SubTask = require('../models/subTask')
+const User = require('../models/user')
 
 const currentTime = require('../utils/currentTime')
 const sumUpTime = require('../utils/sumUpTime')

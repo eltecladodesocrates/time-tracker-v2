@@ -28,6 +28,9 @@ const taskSchema = new mongoose.Schema({
     },
     color: {
         type: String
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId
     }
     
 })
