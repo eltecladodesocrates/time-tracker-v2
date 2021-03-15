@@ -3,25 +3,24 @@ const currentTime = require('./currentTime')
 
 const getTimePassed = async (subId) => {
 
+    
     const subTask = await SubTask.findById(subId)
+    const date = parseInt((new Date().getTime()) / 1000)
     const start = subTask.timeStart
-    const end = currentTime()
+    const end = date
 
-    const hrsStart = parseInt(start.split(':')[0])
-    const minStart = parseInt(start.split(':')[1])
-    const secStart = parseInt(start.split(':')[2])
+    totalSec = end - start
 
-    const hrsEnd = parseInt(end.split(':')[0])
-    const minEnd = parseInt(end.split(':')[1])
-    const secEnd = parseInt(end.split(':')[2])
+    const hrs = parseInt(totalSec/3600)
+    const min = parseInt((totalSec - (3600 * hrs))/60)
+    const sec = (totalSec - (3600 * hrs) - (60 * min))
 
-    subTask.hrs = hrsEnd - hrsStart
-    subTask.min = minEnd - minStart
-    subTask.sec = secEnd - secStart
+    subTask.hrs = hrs
+    subTask.min = min
+    subTask.sec = sec
     subTask.timeEnd = end
     await subTask.save()
 
-    console.log(subTask)
 }
 
 module.exports = getTimePassed

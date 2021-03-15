@@ -83,11 +83,12 @@ router.post('/track', async (req, res) => {
     const tasks = await Task.find()
     const task = await Task.findById(id)
     const sec = task.sec
+    const date = parseInt((new Date().getTime()) / 1000)
 
     const subTask = new SubTask({
         name: task.name,
         owner: id,
-        timeStart: currentTime(),
+        timeStart: date,
         date: moment().format('dddd Do'),
         color: task.color
     })
