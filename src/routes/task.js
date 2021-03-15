@@ -10,6 +10,7 @@ const currentTime = require('../utils/currentTime')
 const sumUpTime = require('../utils/sumUpTime')
 const getHeight = require('../utils/getHeight')
 const getStartPoint = require('../utils/getStartPoint')
+const getTimePassed = require('../utils/getTimePassed')
 
 const router = new express.Router()
 
@@ -106,28 +107,29 @@ router.post('/stop', async (req, res) => {
     const id = ids[0]
     const subId = ids[1]
 
-    let sec = req.body.secPassed
-    let min = req.body.minPassed
-    let hrs = req.body.hrsPassed
+    // let sec = req.body.secPassed
+    // let min = req.body.minPassed
+    // let hrs = req.body.hrsPassed
 
-    if (sec >= 60) {
-        sec = sec - 60
-        min++
-    }
+    // if (sec >= 60) {
+    //     sec = sec - 60
+    //     min++
+    // }
 
-    if (min >= 60 ) {
-        min = min - 60
-        hrs++
-    }
+    // if (min >= 60 ) {
+    //     min = min - 60
+    //     hrs++
+    // }
 
 
-    await SubTask.findByIdAndUpdate(subId, {
-        sec,
-        min,
-        hrs,
-        timeEnd: currentTime()
-    })
+    // await SubTask.findByIdAndUpdate(subId, {
+    //     sec,
+    //     min,
+    //     hrs,
+    //     timeEnd: currentTime()
+    // })
 
+    getTimePassed(subId)
     sumUpTime(id, subId)
     getHeight(subId)
     getStartPoint(subId)
