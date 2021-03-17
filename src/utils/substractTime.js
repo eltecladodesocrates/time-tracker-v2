@@ -18,7 +18,7 @@ const substracTime = (timeStart, timeEnd) => {
 
     // Startpoint
 
-    const startPoint = ((hrsStart ) * 40) + ((minStart * 40) / 60)
+    const startPoint = ((hrsStart - 4) * 40) + ((minStart * 40) / 60)
 
     return [hrs, min, height, startPoint]
 
