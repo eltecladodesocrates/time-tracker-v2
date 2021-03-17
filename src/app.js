@@ -24,3 +24,28 @@ app.listen(port, () => {
 })
 
 
+const substracTime = () => {
+    const timeStart = '13:30'
+    const timeEnd = '15:10'
+
+    const hrsStart = parseInt(timeStart.split(':')[0])
+    const minStart = parseInt(timeStart.split(':')[1])
+
+    const hrsEnd = parseInt(timeEnd.split(':')[0])
+    let minEnd = parseInt(timeEnd.split(':')[1])
+
+    const hrsDifference = hrsEnd - hrsStart
+    if (hrsDifference >= 1) {
+        minEnd = minEnd + (hrsDifference * 60)
+    }
+
+    const passedMin = minEnd - minStart
+    const hrs = parseInt(passedMin/60)
+    const min = passedMin - (hrs * 60)
+
+    return [hrs, min]
+}
+
+
+
+

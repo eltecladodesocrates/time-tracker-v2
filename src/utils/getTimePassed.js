@@ -20,9 +20,9 @@ const getTimePassed = async (subId) => {
     subTask.min = min
     subTask.sec = sec
     subTask.timeEnd = end
-    subTask.height = (min * 40) / 60
+    subTask.height = (((hrs * 60) + min) * 40) / 60
     await subTask.save()
-    // getHeight(subId)
+
 }
 
 // const getHeight = async (subTaskId) => {
