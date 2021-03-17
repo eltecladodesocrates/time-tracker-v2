@@ -1,9 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const moment = require('moment')
 
 const Task = require('../models/task')
 const SubTask = require('../models/subTask')
 const substracTime = require('../utils/substractTime')
+const getStartPoint = require('../utils/getStartPoint')
+const sumUpTime = require('../utils/sumUpTime')
 
 const router = new express.Router()
 
@@ -40,9 +43,15 @@ router.post('/:taskId', async (req, res) => {
         name: task.name,
         owner: id,
         hrs: hrsMin[0],
-        min: hrsMin[1]
+        min: hrsMin[1],
+        height: hrsMin[2],
+        color: 'lightblue',
+        startPoint: hrsMin[3],
+        date: moment().format('dddd Do')
     })
     await subTask.save()
+    sumUpTime(subTask.owner, subTask._id)
+
     res.redirect(`/${id}`)
 
 })

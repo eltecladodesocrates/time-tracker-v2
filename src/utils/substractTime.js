@@ -14,9 +14,14 @@ const substracTime = (timeStart, timeEnd) => {
     const passedMin = minEnd - minStart
     const hrs = parseInt(passedMin/60)
     const min = passedMin - (hrs * 60)
+    const height = (((hrs * 60) + min) * 40) / 60
 
-    return [hrs, min]
-    
+    // Startpoint
+
+    const startPoint = ((hrsStart ) * 40) + ((minStart * 40) / 60)
+
+    return [hrs, min, height, startPoint]
+
 }
 
 module.exports = substracTime

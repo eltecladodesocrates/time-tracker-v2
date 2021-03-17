@@ -4,7 +4,7 @@ const SubTask = require('../models/subTask')
 const sumUpTime = async (taskId, subTaskId) => {
     const task = await Task.findById(taskId)
     const subTask = await SubTask.findById(subTaskId)
-    console.log(subTask)
+
     task.sec += subTask.sec
     task.min += subTask.min
     task.hrs += subTask.hrs
