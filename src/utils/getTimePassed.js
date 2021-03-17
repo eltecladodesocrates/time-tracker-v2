@@ -1,6 +1,7 @@
 const SubTask = require('../models/subTask')
 const currentTime = require('./currentTime')
 
+
 const getTimePassed = async (subId) => {
 
     
@@ -19,8 +20,21 @@ const getTimePassed = async (subId) => {
     subTask.min = min
     subTask.sec = sec
     subTask.timeEnd = end
+    subTask.height = (min * 40) / 60
     await subTask.save()
-
+    // getHeight(subId)
 }
+
+// const getHeight = async (subTaskId) => {
+
+//     const subTask = await SubTask.findById(subTaskId)
+//     const totalMins = (subTask.hrs * 60) + subTask.min
+//     const height = (totalMins * 40) / 60
+//     console.log(subTask)
+//     console.log(height)
+//     subTask.height = (totalMins * 40) / 60
+//     await subTask.save()
+    
+// }
 
 module.exports = getTimePassed
