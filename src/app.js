@@ -12,12 +12,12 @@ const port = process.env.PORT
 
 app.set('view engine', 'ejs')
 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static('public'))
+
 app.use(userRouter)
 app.use(taskRouter)
 app.use(subTaskRouter)
-
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static('public'))
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
