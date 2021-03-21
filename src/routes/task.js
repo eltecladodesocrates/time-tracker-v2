@@ -6,10 +6,8 @@ const Task = require('../models/task')
 const SubTask = require('../models/subTask')
 const User = require('../models/user')
 
-const currentTime = require('../utils/currentTime')
-const getStartPoint = require('../utils/getStartPoint')
 const getTimePassed = require('../utils/getTimePassed')
-const convertTimeStamp = require('../utils/convertTimeStamp')
+const getRealTime = require('../utils/getRealTime')
 
 const router = new express.Router()
 
@@ -96,7 +94,8 @@ router.post('/track', async (req, res) => {
 
     const id = req.body.startButton
     const unixTime = parseInt((new Date().getTime()) / 1000)
-    const hrsStart = convertTimeStamp(unixTime)
+    const realTime = getRealTime()
+    const hrsStart = realTime.hrsMin
 
     try {
         const tasks = await Task.find()
@@ -110,7 +109,7 @@ router.post('/track', async (req, res) => {
             hrsStart,
             date: moment().format('dddd Do'),
             color: task.color,
-            startPoint: getStartPoint()
+            startPoint: realTime.startPoint
         })
         await subTask.save()
     
@@ -137,7 +136,8 @@ router.post('/stop', async (req, res) => {
     const task = await Task.findById(id)
 
     const date = parseInt((new Date().getTime()) / 1000)
-    const hrsEnd = convertTimeStamp(date)
+    const realTime = getRealTime()
+    const hrsEnd = realTime.hrsMin
 
     const attributes = getTimePassed(subTask.timeStart, task.hrs, task.min, task.sec)
     subTask.hrs = attributes.hrs
