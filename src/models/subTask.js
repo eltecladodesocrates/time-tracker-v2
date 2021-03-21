@@ -23,6 +23,12 @@ const subTaskSchema = new mongoose.Schema({
     timeEnd: {
         type: String
     },
+    hrsStart: {
+        type: String
+    },
+    hrsEnd: {
+        type: String
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true

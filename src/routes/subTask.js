@@ -5,8 +5,6 @@ const moment = require('moment')
 const Task = require('../models/task')
 const SubTask = require('../models/subTask')
 const substracTime = require('../utils/substractTime')
-const getStartPoint = require('../utils/getStartPoint')
-const sumUpTime = require('../utils/sumUpTime')
 
 const router = new express.Router()
 

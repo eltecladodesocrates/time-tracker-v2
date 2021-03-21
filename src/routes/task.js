@@ -7,9 +7,9 @@ const SubTask = require('../models/subTask')
 const User = require('../models/user')
 
 const currentTime = require('../utils/currentTime')
-const sumUpTime = require('../utils/sumUpTime')
 const getStartPoint = require('../utils/getStartPoint')
 const getTimePassed = require('../utils/getTimePassed')
+const convertTimeStamp = require('../utils/convertTimeStamp')
 
 const router = new express.Router()
 
@@ -19,86 +19,113 @@ const trackHours = [0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9, 10, 11, 12, 13, 14, 15, 16, 17
 
 router.get('/tracks', async (req, res) => {
 
-    // const subTasks = await SubTask.find()
-    const dayBefore = moment().subtract(2, 'days').format('dddd Do')
-    const yesterday = moment().subtract(1, 'days').format('dddd Do')
-    const today = moment().format('dddd Do')
-    const tomorrow = moment().add(1, 'days').format('dddd Do')
-    const dayAfter = moment().add(2, 'days').format('dddd Do')   
-    
-    const subTasksDayBefore = await SubTask.find({ date: dayBefore })
-    const subTasksYesterday = await SubTask.find({ date: yesterday })
-    const subTasks = await SubTask.find({ date: today })
-    const subTasksTomorrow = await SubTask.find({ date: tomorrow })
-    const subTasksDayAfter = await SubTask.find({ date: dayAfter })
-    
-    res.render('tracks', {
-        trackHours,
-        subTasks,
-        dayBefore,
-        yesterday,
-        today,
-        tomorrow,
-        dayAfter,
-        subTasksDayBefore,
-        subTasksYesterday,
-        subTasksTomorrow,
-        subTasksDayAfter
-    })
+    try {
+
+        const dayBefore = moment().subtract(2, 'days').format('dddd Do')
+        const yesterday = moment().subtract(1, 'days').format('dddd Do')
+        const today = moment().format('dddd Do')
+        const tomorrow = moment().add(1, 'days').format('dddd Do')
+        const dayAfter = moment().add(2, 'days').format('dddd Do')   
+        
+        const subTasksDayBefore = await SubTask.find({ date: dayBefore })
+        const subTasksYesterday = await SubTask.find({ date: yesterday })
+        const subTasks = await SubTask.find({ date: today })
+        const subTasksTomorrow = await SubTask.find({ date: tomorrow })
+        const subTasksDayAfter = await SubTask.find({ date: dayAfter })
+        
+        res.render('tracks', {
+            trackHours,
+            subTasks,
+            dayBefore,
+            yesterday,
+            today,
+            tomorrow,
+            dayAfter,
+            subTasksDayBefore,
+            subTasksYesterday,
+            subTasksTomorrow,
+            subTasksDayAfter
+        })
+    } catch (e) {
+        res.send(e)
+    }
 })
 
 router.get('/', async (req, res) => {
 
-    const tasks = await Task.find()
-    
-    res.render('tasks', {
-        tasks
-    })
+    try {
+        const tasks = await Task.find()
+        res.render('tasks', {
+            tasks
+        })
+    } catch (e){
+        res.send(e)
+    }
 })
 
 
 
 router.post('/', async (req, res) => {
 
-    const task = new Task({
-        name: req.body.newTask,
-        color: "lightblue"
-    })
-    await task.save()
-    res.redirect('/')
+    try {
+        const task = new Task({
+            name: req.body.newTask,
+            color: "lightblue"
+        })
+        await task.save()
+        res.redirect('/')
+    } catch (e) {
+        res.send(e)
+    }
+
 })
 
 router.post('/delete', async (req, res) => {
-    const task = await Task.findByIdAndDelete(req.body.deleteCheckbox)
-    await SubTask.deleteMany({
-        owner: task.id
-    })
-    res.redirect('/')
+    try {
+        const task = await Task.findByIdAndDelete(req.body.deleteCheckbox)
+        await SubTask.deleteMany({
+            owner: task.id
+        })
+        res.redirect('/')
+    } catch (e) {
+        res.send(e)
+    }
 })
 
 router.post('/track', async (req, res) => {
 
     const id = req.body.startButton
-    const tasks = await Task.find()
-    const task = await Task.findById(id)
-    const sec = task.sec
-    const date = parseInt((new Date().getTime()) / 1000)
+    const unixTime = parseInt((new Date().getTime()) / 1000)
+    const hrsStart = convertTimeStamp(unixTime)
 
-    const subTask = new SubTask({
-        name: task.name,
-        owner: id,
-        timeStart: date,
-        date: moment().format('dddd Do'),
-        color: task.color
-    })
-    await subTask.save()
+    try {
+        const tasks = await Task.find()
+        const task = await Task.findById(id)
+        const sec = task.sec
+    
+        const subTask = new SubTask({
+            name: task.name,
+            owner: id,
+            timeStart: unixTime,
+            hrsStart,
+            date: moment().format('dddd Do'),
+            color: task.color,
+            startPoint: getStartPoint()
+        })
+        await subTask.save()
+    
+        res.render('track', {
+            tasks,
+            sec,
+            id,
+            subTaskId: subTask._id
+        })
+        res.send(task)
+    } catch (e) {
+        res.send(e)
+    }
+    
 
-    res.render('track', {
-        tasks,
-        sec,
-        id,
-        subTaskId: subTask._id
-    })
 })
 
 router.post('/stop', async (req, res) => {
@@ -106,29 +133,54 @@ router.post('/stop', async (req, res) => {
     const ids = req.body.startButton.split(',')
     const id = ids[0]
     const subId = ids[1]
+    const subTask = await SubTask.findById(subId)
+    const task = await Task.findById(id)
 
-    getTimePassed(subId)
-    sumUpTime(id, subId)
-    getStartPoint(subId)
+    const date = parseInt((new Date().getTime()) / 1000)
+    const hrsEnd = convertTimeStamp(date)
+
+    const attributes = getTimePassed(subTask.timeStart, task.hrs, task.min, task.sec)
+    subTask.hrs = attributes.hrs
+    subTask.min = attributes.min
+    subTask.sec = attributes.sec
+    subTask.timeEnd = attributes.end
+    subTask.hrsEnd = hrsEnd
+    subTask.height = (((attributes.hrs * 60) + attributes.min) * 40) / 60
+    await subTask.save()
+
+    task.hrs = attributes.taskHrs
+    task.min = attributes.taskMin
+    task.sec = attributes.taskSec
+    await task.save()
 
     res.redirect('/')
 })
 
 router.post('/edit', async (req, res) => {
-    const id = req.body.editButton
-    const tasks = await Task.find()
-    res.render('edit', {
-        tasks,
-        id
-    })
+
+    try {
+        const id = req.body.editButton
+        const tasks = await Task.find()
+        res.render('edit', {
+            tasks,
+            id
+        })
+    } catch (e) {
+        res.send(e)
+    }
 })
 
 router.post('/patch', async (req, res) => {
-    const id = req.body.editButton
-    const task = await Task.findByIdAndUpdate(id, {
-        name: req.body.editInput
-    })
-    res.redirect('/')
+
+    try {
+        const id = req.body.editButton
+        const task = await Task.findByIdAndUpdate(id, {
+            name: req.body.editInput
+        })
+        res.redirect('/')
+    } catch (e) {
+        res.send(e)
+    }
 })
 
 module.exports = router

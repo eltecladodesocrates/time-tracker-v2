@@ -4,7 +4,7 @@ const currentTime = () => {
 
     const currentHourMinute = moment().format('LTS')
     const hourMinuteList = currentHourMinute.split(' ')
-    let hour = parseInt(hourMinuteList[0].split(':')[0]) - 4
+    let hour = parseInt(hourMinuteList[0].split(':')[0])
     const minute = hourMinuteList[0].split(':')[1]
     const second =  hourMinuteList[0].split(':')[2]
     
