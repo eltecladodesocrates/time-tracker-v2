@@ -15,10 +15,11 @@ const substracTime = (timeStart, timeEnd) => {
     const hrs = parseInt(passedMin/60)
     const min = passedMin - (hrs * 60)
     const height = (((hrs * 60) + min) * 40) / 60
+    console.log(height)
 
     // Startpoint
 
-    const startPoint = ((hrsStart - 4) * 40) + ((minStart * 40) / 60)
+    const startPoint = ((hrsStart) * 40) + ((minStart * 40) / 60)
 
     return [hrs, min, height, startPoint]
 
