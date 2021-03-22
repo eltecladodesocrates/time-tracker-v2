@@ -5,6 +5,7 @@
     <div class="container">
         <form class="container" action="/<%= id %>/deleteSub" method="post">
             <input type="checkbox" name="deleteCheckbox" value="<%= subTask._id %>" onChange="this.form.submit()">
+            <p><%= subTask.hrsStart %> - <%= subTask.hrsEnd %></p>
             <p><%= subTask.hrs %>:<%= subTask.min %>:<%= subTask.sec %></p>
         </form>
     </div>

@@ -34,7 +34,6 @@ router.post('/:taskId', async (req, res) => {
 
     const id = req.params.taskId
     const hrsMin = substracTime(req.body.startTime, req.body.endTime)
-
     const task = await Task.findById(id)
     const subTask = new SubTask({
         name: task.name,
@@ -44,7 +43,9 @@ router.post('/:taskId', async (req, res) => {
         height: hrsMin[2],
         color: 'lightblue',
         startPoint: hrsMin[3],
-        date: moment().format('dddd Do')
+        date: moment().format('dddd Do'),
+        hrsStart: req.body.startTime,
+        hrsEnd: req.body.endTime
     })
     await subTask.save()
     sumUpTime(subTask.owner, subTask._id)
