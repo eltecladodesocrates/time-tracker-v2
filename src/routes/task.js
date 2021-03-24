@@ -135,7 +135,6 @@ router.post('/stop', async (req, res) => {
     const subTask = await SubTask.findById(subId)
     const task = await Task.findById(id)
 
-    const date = parseInt((new Date().getTime()) / 1000)
     const realTime = getRealTime()
     const hrsEnd = realTime.hrsMin
 
