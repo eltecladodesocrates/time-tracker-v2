@@ -1,67 +1,80 @@
-// const mongoose = require('mongoose')
-// const validator = require('validator')
-// const bcrypt = require('bcryptjs')
-// const passport = require('passport')
-// const passportLocalMongoose = require('passport-local-mongoose')
+const mongoose = require('mongoose')
+const validator = require('validator')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
-// const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
-//     name: {
-//         type: String,
-//         trim: true
-//     },
-//     password: {
-//         type: String,
-//         trim: true,
-//         minlength: 7,
-//         validate(value) {
-//             if(value.toLowerCase().includes('password')) {
-//                 throw new Error('Password cannot contain the string password')
-//             }
-//         }
-//     },
-//     email: {
-//         type: String,
-//         unique: true,
-//         trim: true,
-//         lowercase: true,
-//         validate(value) {
-//             if(!validator.isEmail(value)) {
-//                 throw new Error('Invalid email')
-//             }
-//         }
-//     }
-// })
+    name: {
+        type: String,
+        trim: true
+    },
+    password: {
+        type: String,
+        trim: true,
+        minlength: 7,
+        validate(value) {
+            if(value.toLowerCase().includes('password')) {
+                throw new Error('Password cannot contain the string password')
+            }
+        }
+    },
+    email: {
+        type: String,
+        unique: true,
+        trim: true,
+        lowercase: true,
+        validate(value) {
+            if(!validator.isEmail(value)) {
+                throw new Error('Invalid email')
+            }
+        }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
+})
 
-// userSchema.plugin(passportLocalMongoose)
+// instance methods
+userSchema.methods.generateAuthToken = async function () {
 
-// userSchema.statics.findByCredentials = async (email, password) => {
+    const user = this
+    const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse')
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
+    return token 
 
-//     const user = await User.findOne({ email })
-//     if (!user) {
-//         throw new Error('Unable to login')
-//     }
-//     const isMatch = await bcrypt.compare(password, user.password)
-//     if(!isMatch) {
-//         throw new Error('Unable to login')
-//     }
-//     return user
+} 
 
-// }
+// model methods
+userSchema.statics.findByCredentials = async (email, password) => {
+    
+    const user = await User.findOne({ email })
+    if (!user) {
+        throw new Error('Unable to login')
+    } 
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+        throw new Error('Unable to login')
+    }
+    return user
 
-// Hash plane text password
-// userSchema.pre('save', async function (next) {
-//     const user = this
-//     user.password = await bcrypt.hash(user.password, 8)
-//     next()
-// })
+}
 
-// const User = mongoose.model('User', userSchema)
+// Hash the plain text password
+userSchema.pre('save', async function (next) {
 
-// passport.use(User.createStrategy())
-// passport.serializeUser(User.serializeUser())
-// passport.deserializeUser(User.deserializeUser())
+    const user = this
+    //This condition checks if the password is already hashed
+    if (user.isModified('password')) {
+        user.password = await bcrypt.hash(user.password, 8)
+    }
+    next()
+})
 
+const User = mongoose.model('User', userSchema)
 
-
-// module.exports = User
+module.exports = User
